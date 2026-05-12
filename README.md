@@ -251,29 +251,14 @@ py -3.12 main.py
 
 ---
 
-# Future Improvements
+# Future Work
 
 * Peak-hour traffic simulation
 * Congestion modeling
 * Smart idle positioning
 * Predictive traffic estimation
-* Reinforcement-learning-based scheduling experiments
+* Intelligent traffic prediction experiments
 * Advanced efficiency analytics
-
----
-
-# Resume Impact
-
-ElevateAI demonstrates practical experience with:
-
-* Scheduling algorithms
-* Optimization systems
-* State-machine architectures
-* Real-time simulation
-* Resource allocation
-* Systems engineering
-* Observability and metrics
-* Modular software design
 
 ---
 
