@@ -1,92 +1,83 @@
 # ElevateAI
 
-> Real-time elevator scheduling and optimization simulator  
-> implementing FCFS and SCAN scheduling algorithms with live visualization,  
-> multi-elevator dispatching, and performance metrics.
----
-
-## Demo
-
-<img width="892" height="558" alt="image" src="https://github.com/user-attachments/assets/76b191a8-fe40-4381-9418-8858eb92f518" />
-
-
----
-
-# Overview
+### Real-Time Elevator Scheduling & Optimization Simulator
 
 ElevateAI is a systems-oriented simulation project focused on real-time elevator scheduling, dispatch optimization, fairness, and efficiency analysis.
 
-The simulator models a multi-elevator enterprise building environment where elevators dynamically respond to passenger requests while minimizing:
+The project simulates a multi-elevator building environment where elevators dynamically respond to passenger requests while minimizing:
 
-* Average wait time
+* Passenger wait time
 * Unnecessary travel distance
 * Idle movement
 * Direction reversals
 * Scheduling inefficiencies
 
-The project was designed to explore core concepts used in:
-
-* Operating systems scheduling
-* Resource allocation systems
-* Real-time simulation engines
-* Optimization algorithms
-* State-machine-driven architectures
-* Event-driven systems
-
-Unlike traditional CRUD portfolio projects, ElevateAI focuses on algorithmic behavior, scheduling intelligence, simulation architecture, and measurable optimization.
+Unlike traditional CRUD portfolio projects, ElevateAI focuses on scheduling algorithms, simulation architecture, state-machine-driven systems, and measurable optimization behavior.
 
 ---
 
-# Key Features
+# Demo
+
+## Live Simulation Dashboard
+
+<img width="896" height="565" alt="image" src="https://github.com/user-attachments/assets/28192f69-aee7-42ba-90b9-9dd745673e9b" />
+
+---
+
+# Core Features
 
 ## Real-Time Simulation
 
-* Live elevator movement simulation
-* Multi-floor building environment
+* Live multi-elevator movement simulation
 * Dynamic passenger request generation
-* Real-time state updates
+* Real-time elevator state updates
+* Event-driven request handling
 
 ## Scheduling Algorithms
 
 * FCFS (First Come First Serve)
 * SCAN (Elevator Algorithm)
 * Runtime scheduler switching
-* Request batching and directional optimization
+* Direction-aware request batching
 
 ## Multi-Elevator Dispatching
 
 * Multiple autonomous elevator agents
 * Dynamic request assignment
-* Direction-aware scheduling
+* Direction-aware scheduling decisions
 * Idle elevator management
 
-## Metrics Dashboard
+## Metrics Tracking
 
-Tracks live system performance metrics including:
+Tracks live simulation metrics including:
 
 * Average wait time
-* Total travel distance
+* Total elevator travel distance
 * Idle time
-* Efficiency score
 * Active requests
 * Completed requests
+* Overall efficiency score
 
 ## Visualization
 
 * Interactive Pygame visualization
-* Elevator state rendering
+* Real-time elevator rendering
 * Floor request indicators
-* Real-time dashboard updates
+* Live scheduling dashboard
 
-## State Machine Architecture
+---
 
-Explicit elevator states:
+# Elevator State Machine
+
+Elevators operate using explicit state transitions:
 
 * IDLE
 * MOVING_UP
 * MOVING_DOWN
 * PICKING_UP
 * DROPPING_OFF
+
+This architecture helps maintain deterministic movement behavior and consistent request lifecycle handling.
 
 ---
 
@@ -109,8 +100,17 @@ ElevateAI/
 ├── visualization/
 │   └── pygame_view.py
 │
+├── tests/
+│   ├── integration tests
+│   ├── scheduler validation tests
+│   ├── elevator state tests
+│   └── edge-case handling tests
+│
+├── .github/workflows/
+│   └── tests.yml
+│
 ├── main.py
-└── test_simulation.py
+└── requirements.txt
 ```
 
 ---
@@ -119,49 +119,71 @@ ElevateAI/
 
 ## FCFS (First Come First Serve)
 
-The FCFS scheduler processes requests sequentially in the order they arrive.
+Processes elevator requests sequentially in the order they arrive.
 
 Characteristics:
 
-* Simple scheduling logic
-* Reactive request handling
-* Frequent direction reversals
-* Lower optimization efficiency
-
-Used primarily as a baseline scheduling strategy.
+* Simple request handling
+* Reactive scheduling behavior
+* Higher direction reversals
+* Baseline scheduling strategy
 
 ---
 
 ## SCAN (Elevator Algorithm)
 
-The SCAN scheduler improves scheduling efficiency by keeping elevators moving in the current direction while batching compatible requests before reversing.
+Improves scheduling efficiency by continuing movement in the current direction while batching compatible requests before reversing.
 
-Key behaviors:
+Characteristics:
 
 * Direction persistence
-* Request batching
 * Reduced unnecessary reversals
-* Better travel efficiency
-* Lower average wait times
+* Improved request batching
+* Lower average travel overhead
+* Better scheduling efficiency
 
-This algorithm is conceptually similar to disk scheduling strategies used in operating systems.
+The SCAN strategy is conceptually similar to disk scheduling algorithms used in operating systems.
 
 ---
 
 # Metrics and Optimization
 
-ElevateAI continuously tracks simulation performance using live metrics.
+ElevateAI continuously tracks simulation performance metrics to compare scheduling behavior across algorithms.
 
-| Metric             | Purpose                               |
+| Metric             | Description                           |
 | ------------------ | ------------------------------------- |
 | Average Wait Time  | Measures passenger waiting efficiency |
-| Travel Distance    | Measures total elevator movement      |
+| Travel Distance    | Tracks total elevator movement        |
 | Idle Time          | Measures unused elevator time         |
 | Efficiency Score   | Estimates overall scheduling quality  |
-| Completed Requests | Measures throughput                   |
 | Active Requests    | Measures current system load          |
+| Completed Requests | Measures throughput                   |
 
-These metrics allow direct comparison between scheduling algorithms.
+---
+
+# Automated Testing & CI/CD
+
+ElevateAI includes automated testing and scheduler validation using `pytest`.
+
+The test suite validates:
+
+* FCFS scheduling behavior
+* SCAN direction persistence
+* Request lifecycle tracking
+* Multi-elevator coordination
+* Timestamp-aware scheduling
+* Scheduler scoring logic
+* Elevator state transitions
+* Integration and edge-case scenarios
+
+GitHub Actions automatically executes the test suite on every push and pull request.
+
+Current test coverage includes:
+
+* Unit tests
+* Scheduler validation tests
+* Integration tests
+* Edge-case simulation tests
 
 ---
 
@@ -169,23 +191,23 @@ These metrics allow direct comparison between scheduling algorithms.
 
 ## Modular Scheduler Architecture
 
-Designed a pluggable scheduling system allowing runtime switching between FCFS and SCAN algorithms.
+Designed a pluggable scheduling framework allowing runtime switching between FCFS and SCAN algorithms.
 
 ## Deterministic Elevator State Machine
 
-Implemented explicit elevator states to eliminate inconsistent movement behavior and stale state transitions.
+Implemented explicit elevator states to prevent inconsistent movement behavior and stale transitions.
 
-## Real-Time Simulation Loop
+## Event-Driven Simulation Flow
 
-Built a synchronized simulation engine supporting live movement, request handling, rendering, and metrics updates.
+Built a synchronized simulation engine handling movement, scheduling, rendering, and metrics updates in real time.
 
 ## Direction-Aware Scheduling
 
-Implemented SCAN scheduling logic to reduce inefficient reversals and improve batching efficiency.
+Implemented SCAN scheduling logic to reduce unnecessary reversals and improve batching efficiency.
 
-## Visualization and Observability
+## Scheduler Validation
 
-Created a live dashboard exposing scheduling metrics and elevator states for easier debugging and performance analysis.
+Added automated tests and CI/CD workflows to validate scheduling correctness and simulation behavior.
 
 ---
 
@@ -203,10 +225,9 @@ Created a live dashboard exposing scheduling metrics and elevator states for eas
 
 # Screenshots
 
-## Live Simulation Dashboard
+## Live Dashboard
 
 <img width="896" height="565" alt="image" src="https://github.com/user-attachments/assets/28192f69-aee7-42ba-90b9-9dd745673e9b" />
-
 
 ---
 
@@ -214,17 +235,19 @@ Created a live dashboard exposing scheduling metrics and elevator states for eas
 
 <img width="1800" height="1126" alt="image" src="https://github.com/user-attachments/assets/c63a56b6-068c-4bc5-9592-b70297255643" />
 
-
 ---
 
-# Technologies Used
+# Technologies & Concepts
 
 * Python
 * Pygame
 * Object-Oriented Programming
+* Event-Driven Simulation
 * Scheduling Algorithms
-* Real-Time Simulation
-* Event-Driven Architecture
+* State-Machine Architecture
+* Automated Testing with pytest
+* GitHub Actions CI/CD
+* Real-Time Systems Simulation
 
 ---
 
@@ -240,25 +263,31 @@ cd ElevateAI
 ## Install Dependencies
 
 ```bash
-pip install pygame
+pip install -r requirements.txt
 ```
 
 ## Run Simulation
 
 ```bash
-py -3.12 main.py
+python main.py
+```
+
+## Run Tests
+
+```bash
+python -m pytest tests/ -v
 ```
 
 ---
 
-# Future Work
+# Future Improvements
 
 * Peak-hour traffic simulation
-* Congestion modeling
-* Smart idle positioning
-* Predictive traffic estimation
-* Intelligent traffic prediction experiments
-* Advanced efficiency analytics
+* Congestion-aware dispatching
+* Smart idle elevator positioning
+* Adaptive scheduling strategies
+* Traffic heatmap visualization
+* Advanced scheduler benchmarking
 
 ---
 
