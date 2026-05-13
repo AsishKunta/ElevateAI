@@ -44,7 +44,10 @@ class FCFSScheduler(BaseScheduler):
         5. Elevator moves to destination floor, drops off passenger
         6. Mark request as completed
         """
-        pending_requests = sorted(self.get_pending_requests(), key=lambda r: r.timestamp)
+        pending_requests = sorted(
+            [r for r in self.get_pending_requests() if r.timestamp <= current_time],
+            key=lambda r: r.timestamp
+        )
         elevators = self.building.get_elevators()
 
         # Assign pending requests to the best available elevator
@@ -68,7 +71,7 @@ class FCFSScheduler(BaseScheduler):
         score = abs(elevator.current_floor - request.source_floor)
 
         if elevator.direction == 0:
-            score -= 1.0
+            pass  # Idle elevators don't get special bonus; distance is primary factor
         elif elevator.direction == request.direction:
             if (request.source_floor - elevator.current_floor) * elevator.direction >= 0:
                 score -= 0.5
@@ -77,7 +80,7 @@ class FCFSScheduler(BaseScheduler):
         else:
             score += 5.0
 
-        score += len(elevator.active_requests) * 2.0
+        score += len(elevator.active_requests) * 1.0
 
         if elevator.target_floor is not None and elevator.target_floor == request.source_floor:
             score -= 0.5
