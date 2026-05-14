@@ -175,6 +175,39 @@ The SCAN strategy is conceptually similar to disk scheduling algorithms used in 
 
 ---
 
+# Simulation Flow Example
+
+```text
+[Time 0]
+Request Added:
+Floor 2 → Floor 8
+
+[Time 1]
+Scheduler Engine:
+Assigned Elevator A
+
+[Time 2]
+Elevator A:
+MOVING_UP toward Floor 2
+
+[Time 4]
+Elevator A:
+PICKING_UP passengers
+
+[Time 5]
+Elevator A:
+MOVING_UP toward Floor 8
+
+[Time 8]
+Elevator A:
+DROPPING_OFF passengers
+
+[Time 9]
+Metrics Updated:
+Wait Time = 8
+Completed Requests = 1
+```
+
 # Metrics and Optimization
 
 ElevateAI continuously tracks simulation performance metrics to compare scheduling behavior across algorithms.
@@ -189,6 +222,62 @@ ElevateAI continuously tracks simulation performance metrics to compare scheduli
 | Completed Requests | Measures throughput                   |
 
 ---
+
+# Engineering Decisions
+
+## Why Use Explicit Elevator States?
+
+ElevateAI uses explicit elevator states such as:
+
+- IDLE
+- MOVING_UP
+- MOVING_DOWN
+- PICKING_UP
+- DROPPING_OFF
+
+instead of relying on implicit movement logic.
+
+This approach improves simulation determinism, simplifies debugging, and prevents inconsistent request lifecycle behavior during scheduling transitions.
+
+---
+
+## Why Separate Scheduling Logic?
+
+Scheduling algorithms are implemented as isolated scheduler modules rather than embedding logic directly into the elevator controller.
+
+This architecture allows:
+
+- Runtime scheduler switching
+- Easier experimentation with optimization strategies
+- Independent scheduler testing
+- Cleaner separation of responsibilities
+
+The modular design also makes it easier to add future scheduling strategies without modifying core simulation behavior.
+
+---
+
+## Why Implement SCAN Scheduling?
+
+The SCAN algorithm was implemented to reduce unnecessary direction reversals and improve batching efficiency compared to FCFS scheduling.
+
+Rather than reacting to requests individually, SCAN continues movement in the current direction while servicing compatible requests before reversing.
+
+This approach improves overall movement efficiency and more closely resembles real-world elevator dispatch behavior.
+
+---
+
+## Why Track Metrics?
+
+ElevateAI continuously tracks simulation metrics to measure scheduling quality objectively.
+
+Metrics such as:
+
+- Average wait time
+- Travel distance
+- Idle time
+- Request throughput
+
+allow direct comparison between scheduling strategies and provide measurable insight into system behavior.
 
 # Automated Testing & CI/CD
 
